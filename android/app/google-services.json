@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "916459025681",
+    "project_id": "wecon-64b0e",
+    "storage_bucket": "wecon-64b0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916459025681:android:4e2b04e7b446b0c96948b0",
+        "android_client_info": {
+          "package_name": "com.example.wecon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916459025681-70bs7l7cp96df9n8o7fhajrhl89nno2r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wecon",
+            "certificate_hash": "877e546bb3e07b4e9163804c39fa4ff9276d0e2b"
+          }
+        },
+        {
+          "client_id": "916459025681-npoisr7idorsr1i6dtqdd11376tk1fk1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgDzekjmD6yUWa_PlMybM-EXzs-mSom4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916459025681-npoisr7idorsr1i6dtqdd11376tk1fk1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
