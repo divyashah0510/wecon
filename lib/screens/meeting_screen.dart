@@ -1,21 +1,20 @@
-// import 'dart:math';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:wecon/resources/jitsi_meet_methods.dart';
 import 'package:wecon/widgets/home_meeting_button.dart';
-// import 'package:zoom_clone_tutorial/resources/jitsi_meet_methods.dart';
 
 class MeetingScreen extends StatelessWidget {
-  const MeetingScreen({super.key});
+  MeetingScreen({super.key});
 
-  // final JitsiMeetMethods _jitsiMeetMethods = JitsiMeetMethods();
+  final JitsiMeetMethods _jitsiMeetMethods = JitsiMeetMethods();
 
   createNewMeeting() async {
     // Create console log for debugging
     print('Create New Meeting');
-    // var random = Random();
-    // String roomName = (random.nextInt(10000000) + 10000000).toString();
-    // _jitsiMeetMethods.createMeeting(
-    //     roomName: roomName, isAudioMuted: true, isVideoMuted: true);
+    var random = Random();
+    String roomName = (random.nextInt(10000000) + 10000000).toString();
+    _jitsiMeetMethods.createMeeting(
+        roomName: roomName, isAudioMuted: true, isVideoMuted: true);
   }
 
   joinMeeting(BuildContext context) {

@@ -1,8 +1,10 @@
+import 'package:jitsi_meet_wrapper/jitsi_meet_wrapper.dart';
 import 'package:wecon/resources/auth_methods.dart';
+import 'package:wecon/resources/firestore_methods.dart';
 
 class JitsiMeetMethods {
   final AuthMethods _authMethods = AuthMethods();
-  // final FirestoreMethods _firestoreMethods = FirestoreMethods();
+  final FirestoreMethods _firestoreMethods = FirestoreMethods();
 
   void createMeeting({
     required String roomName,
@@ -11,11 +13,6 @@ class JitsiMeetMethods {
     String username = '',
   }) async {
     try {
-      // FeatureFlag featureFlag = FeatureFlag();
-      // featureFlag.welcomePageEnabled = false;
-      // featureFlag.resolution = FeatureFlagVideoResolution
-          // .MD_RESOLUTION; // Limit video resolution to 360p
-      // ignore: unused_local_variable
       String name;
       if (username.isEmpty) {
         name = _authMethods.user.displayName!;
@@ -23,14 +20,20 @@ class JitsiMeetMethods {
         name = username;
       }
       // var options = JitsiMeetingOptions(room: roomName)
-        // ..userDisplayName = name
-        // ..userEmail = _authMethods.user.email
-        // ..userAvatarURL = _authMethods.user.photoURL
-        // ..audioMuted = isAudioMuted
-        // ..videoMuted = isVideoMuted;
+      _firestoreMethods.addToMeetingHistory(roomName);
+      var options = JitsiMeetingOptions(
+          roomNameOrUrl: roomName,
+          userDisplayName: name,
+          userEmail: _authMethods.user.email,
+          userAvatarUrl: _authMethods.user.photoURL,
+          isAudioMuted: isAudioMuted,
+          isVideoMuted: isVideoMuted,
+          featureFlags: {
+            'welcomepageenabled': false,
+            'resolution': 'MD_RESOLUTION'
+          });
 
-      // _firestoreMethods.addToMeetingHistory(roomName);
-      // await JitsiMeet.joinMeeting(options);
+      await JitsiMeetWrapper.joinMeeting(options: options);
     } catch (error) {
       print("error: $error");
     }

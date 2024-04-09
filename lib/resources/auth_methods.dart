@@ -40,6 +40,7 @@ class AuthMethods {
         res = true;
       }
     } on FirebaseAuthException catch (e) {
+      // ignore: use_build_context_synchronously
       showSnackBar(context, e.message!);
       res = false;
     }
