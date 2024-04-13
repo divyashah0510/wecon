@@ -5,7 +5,6 @@ import 'package:wecon/resources/jitsi_meet_methods.dart';
 import 'package:wecon/utils/colors.dart';
 import 'package:wecon/widgets/meeting_option.dart';
 
-
 class VideoCallScreen extends StatefulWidget {
   const VideoCallScreen({Key? key}) : super(key: key);
 
@@ -17,6 +16,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   final AuthMethods _authMethods = AuthMethods();
   late TextEditingController meetingIdController;
   late TextEditingController nameController;
+  late TextEditingController linkController;
   final JitsiMeetMethods _jitsiMeetMethods = JitsiMeetMethods();
   bool isAudioMuted = true;
   bool isVideoMuted = true;
@@ -24,6 +24,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   @override
   void initState() {
     meetingIdController = TextEditingController();
+    linkController = TextEditingController();
     nameController = TextEditingController(
       text: _authMethods.user.displayName,
     );
@@ -36,11 +37,19 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     meetingIdController.dispose();
     nameController.dispose();
     JitsiMeetWrapper.hangUp();
+    linkController.dispose();
   }
 
   _joinMeeting() {
+    String roomName = linkController.text.isNotEmpty
+        ? linkController.text
+        : meetingIdController.text;
+    if (roomName.startsWith('https://meet.jit.si/')) {
+      roomName = roomName.replaceFirst('https://meet.jit.si/', '');
+    }
+
     _jitsiMeetMethods.createMeeting(
-      roomName: meetingIdController.text,
+      roomName: roomName,
       isAudioMuted: isAudioMuted,
       isVideoMuted: isVideoMuted,
       username: nameController.text,
@@ -85,12 +94,28 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
               controller: nameController,
               maxLines: 1,
               textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
               decoration: const InputDecoration(
                 fillColor: secondaryBackgroundColor,
                 filled: true,
                 border: InputBorder.none,
                 hintText: 'Name',
+                contentPadding: EdgeInsets.fromLTRB(16, 8, 0, 0),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 60,
+            child: TextField(
+              controller: linkController,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.url,
+              decoration: const InputDecoration(
+                fillColor: secondaryBackgroundColor,
+                filled: true,
+                border: InputBorder.none,
+                hintText: 'https://meet.jit.si/room-name',
                 contentPadding: EdgeInsets.fromLTRB(16, 8, 0, 0),
               ),
             ),
